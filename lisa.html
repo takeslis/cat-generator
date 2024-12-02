@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin-top: 20px;
+            cursor: pointer;
+            background-color: #f58220;
+            border: none;
+            color: white;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #e67319;
+        }
+        img {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>Cat Picture Generator 🐱</h1>
+<p>Click the button to get a random cat picture!</p>
+<button id="cat-button">Get a Cat Picture</button>
+<div id="cat-container">
+    <!-- The cat image will appear here -->
+</div>
+
+<script>
+    const button = document.getElementById('cat-button');
+    const container = document.getElementById('cat-container');
+
+    button.addEventListener('click', async () => {
+        try {
+            // Fetch a random cat image from The Cat API
+            const response = await fetch('https://api.thecatapi.com/v1/images/search');
+            const data = await response.json();
+            const catImageUrl = data[0].url;
+
+            // Update the container with the new cat image
+            container.innerHTML = `<img src="${catImageUrl}" alt="A cute cat">`;
+        } catch (error) {
+            console.error('Error fetching cat image:', error);
+            container.innerHTML = '<p>Failed to load cat picture. Please try again.</p>';
+        }
+    });
+</script>
+</body>
+</html>
